@@ -30,7 +30,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
       <div
         className={`relative`}
       >
-        <Link to="/" className="py-6 px-8 text-center">
+        <div className="py-6 px-8 text-center">
         <img src="/img/Occasion360_logo.png" height={75} width={75} alt="" style={{ margin: 'auto' }}/>
           <Typography
             variant="h6"
@@ -38,16 +38,16 @@ export function Sidenav({ brandImg, brandName, routes }) {
           >
             {brandName}
           </Typography>
-        </Link>
+        </div>
         <IconButton
           variant="text"
-          color="white"
+          color="black"
           size="sm"
           ripple={false}
           className="absolute right-0 top-0 grid rounded-br-none rounded-tl-none xl:hidden"
           onClick={() => setOpenSidenav(dispatch, false)}
         >
-          <XMarkIcon strokeWidth={2.5} className="h-5 w-5 text-white" />
+          <XMarkIcon strokeWidth={2.5} className="h-5 w-5 text-black" />
         </IconButton>
       </div>
       <div className="m-4">

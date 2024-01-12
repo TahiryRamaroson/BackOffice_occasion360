@@ -1,6 +1,6 @@
 import {
   Card,
-  CardHeader,
+  CardBody,
   Typography,
 } from "@material-tailwind/react";
  
@@ -8,10 +8,10 @@ import {
 export function Gestion() {
 
   return (
-    <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-4">
+    <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
       {Array.from({ length: 10 }, (_, index) => (
       <Card key={index} color="gray" variant="gradient" className="w-full max-w-[20rem] p-8">
-      <CardHeader
+      <CardBody
         floated={false}
         shadow={false}
         color="transparent"
@@ -24,7 +24,7 @@ export function Gestion() {
         >
           Marque
         </Typography>
-      </CardHeader>
+      </CardBody>
     </Card>
     ))}
     </div>
