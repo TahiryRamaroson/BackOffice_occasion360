@@ -30,6 +30,11 @@ export function SignIn() {
     e.preventDefault();
     // Vous pouvez faire quelque chose avec les données ici
     console.log('Données soumises :', formData);
+
+    // raha misy io compte io dia maka token
+    const authToken = "votre_token_d_authentification:000000000111111111";
+    localStorage.setItem("authToken", authToken);
+
     navigate('/dashboard/home');
   };
 

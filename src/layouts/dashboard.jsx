@@ -4,7 +4,6 @@ import { IconButton } from "@material-tailwind/react";
 import {
   Sidenav,
   DashboardNavbar,
-  Configurator,
   Footer,
 } from "@/widgets/layout";
 import routes from "@/routes";

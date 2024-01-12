@@ -1,12 +1,12 @@
 import {
-  HomeIcon,
-  UserCircleIcon,
+  PresentationChartBarIcon,
   TableCellsIcon,
-  InformationCircleIcon,
   ServerStackIcon,
   RectangleStackIcon,
+  DocumentTextIcon,
+  ComputerDesktopIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Tables, Notifications } from "@/pages/dashboard";
+import { Home, Annonce, Tables, Gestion, Details } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 
 const icon = {
@@ -18,28 +18,39 @@ export const routes = [
     layout: "dashboard",
     pages: [
       {
-        icon: <HomeIcon {...icon} />,
-        name: "dashboard",
+        icon: <PresentationChartBarIcon {...icon} />,
+        name: "Statistique",
         path: "/home",
         element: <Home />,
+        op: "1",
       },
       {
-        icon: <UserCircleIcon {...icon} />,
-        name: "profile",
-        path: "/profile",
-        element: <Profile />,
+        icon: <DocumentTextIcon {...icon} />,
+        name: "Annonce",
+        path: "/annonce",
+        element: <Annonce />,
+        op: "1",
       },
       {
         icon: <TableCellsIcon {...icon} />,
         name: "tables",
         path: "/tables",
         element: <Tables />,
+        op: "1",
       },
       {
-        icon: <InformationCircleIcon {...icon} />,
-        name: "notifications",
-        path: "/notifications",
-        element: <Notifications />,
+        icon: <ComputerDesktopIcon {...icon} />,
+        name: "Gestion",
+        path: "/gestion",
+        element: <Gestion />,
+        op: "1",
+      },
+      {
+        icon: <ComputerDesktopIcon {...icon} />,
+        name: "Details",
+        path: "/details",
+        element: <Details />,
+        op: "0",
       },
     ],
   },
