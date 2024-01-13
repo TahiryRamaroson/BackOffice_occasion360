@@ -5,8 +5,29 @@ import {
     Typography,
     Carousel,
   } from "@material-tailwind/react";
+  import {useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 
 export function Details() {
+  
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fonction pour vérifier la présence du token dans le localStorage
+    const checkToken = () => {
+      const token = localStorage.getItem('authToken');
+
+      // Si le token est présent, l'utilisateur est connecté
+      if (token) {
+        console.log('utilisateur connecté');
+      } else {
+        navigate('/auth/sign-in');
+      }
+    };
+
+    // Appel de la fonction de vérification lors du chargement de la page
+    checkToken();
+    }, []);
 
     return (
       <Card className="mt-6 w-full" style={{margin:'auto'}}>

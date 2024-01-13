@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
   Typography,
   Card,
@@ -26,8 +26,29 @@ import {
   ordersOverviewData,
 } from "@/data";
 import { CheckCircleIcon, ClockIcon } from "@heroicons/react/24/solid";
+import { useNavigate } from "react-router-dom";
 
 export function Home() {
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fonction pour vérifier la présence du token dans le localStorage
+    const checkToken = () => {
+      const token = localStorage.getItem('authToken');
+
+      // Si le token est présent, l'utilisateur est connecté
+      if (token) {
+        console.log('utilisateur connecté');
+      } else {
+        navigate('/auth/sign-in');
+      }
+    };
+
+    // Appel de la fonction de vérification lors du chargement de la page
+    checkToken();
+    }, []);
+
   return (
     <div className="mt-12">
       <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">

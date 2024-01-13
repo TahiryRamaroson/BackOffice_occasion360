@@ -9,10 +9,31 @@ import {
 import {
   InformationCircleIcon,
 } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { projectsData } from "@/data";
+import { useEffect } from 'react';
 
 export function Annonce() {
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fonction pour vérifier la présence du token dans le localStorage
+    const checkToken = () => {
+      const token = localStorage.getItem('authToken');
+
+      // Si le token est présent, l'utilisateur est connecté
+      if (token) {
+        console.log('utilisateur connecté');
+      } else {
+        navigate('/auth/sign-in');
+      }
+    };
+
+    // Appel de la fonction de vérification lors du chargement de la page
+    checkToken();
+    }, []);
+
   return (
     <>
       <div className="relative mt-8 h-72 w-full overflow-hidden rounded-xl bg-[url('/img/background-image.png')] bg-cover	bg-center">
