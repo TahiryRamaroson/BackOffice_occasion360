@@ -7,13 +7,14 @@ import {
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 export function SignIn() {
   const navigate = useNavigate();
 
   // État local pour suivre les valeurs du formulaire
   const [formData, setFormData] = useState({
-    mdp: '',
-    email: '',
+    mail: '',
+    password: '',
   });
 
   // Gestionnaire d'événement pour la saisie des champs
@@ -26,16 +27,41 @@ export function SignIn() {
   };
 
   // Gestionnaire d'événement pour la soumission du formulaire
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Vous pouvez faire quelque chose avec les données ici
-    console.log('Données soumises :', formData);
+  
+    const apiUrl = "https://test-springboot-production.up.railway.app/utilisateurs/admin/login"; 
+  
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Vous pouvez ajouter des en-têtes supplémentaires si nécessaire, par exemple pour l'authentification
+          // 'Authorization': 'Bearer ' + votreToken,
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Erreur lors de la demande.');
+      }
+  
+      const responseData = await response.json();
 
-    // raha misy io compte io dia maka token
-    const authToken = "votre_token_d_authentification:000000000111111111";
-    localStorage.setItem("authToken", authToken);
-
-    navigate('/dashboard/home');
+    if (responseData.message == null) {
+      alert('Email ou mot de passe incorrect');
+      return navigate('/auth/sign-in');
+    }
+  
+      const authToken = responseData.result.token;
+      localStorage.setItem("authToken", authToken);
+  
+      
+      navigate('/dashboard/home');
+    } catch (error) {
+      console.error('Erreur lors de la connexion :', error.message);
+    }
   };
 
   return (
@@ -61,8 +87,8 @@ export function SignIn() {
                 className: "before:content-none after:content-none",
               }}
               type="email"
-              name="email"
-              value={formData.email}
+              name="mail"
+              value={formData.mail}
               onChange={handleChange}
             />
             <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
@@ -76,8 +102,8 @@ export function SignIn() {
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
-              name="mdp"
-              value={formData.mdp}
+              name="password"
+              value={formData.password}
               onChange={handleChange}
             />
           </div>

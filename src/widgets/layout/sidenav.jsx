@@ -34,7 +34,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
         <img src="/img/Occasion360_logo.png" height={75} width={75} alt="" style={{ margin: 'auto' }}/>
           <Typography
             variant="h6"
-            color={sidenavType === "dark" ? "white" : "blue-gray"}
+            color={sidenavType === "black" ? "white" : "blue-gray"}
           >
             {brandName}
           </Typography>
@@ -66,7 +66,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
               </li>
             )}
             {pages.map(({ icon, name, path, op }) => (
-              <li key={name} style={{opacity: op}}>
+              <li key={name} style={{display: op}}>
                 <NavLink to={`/${layout}${path}`}>
                   {({ isActive }) => (
                     <Button

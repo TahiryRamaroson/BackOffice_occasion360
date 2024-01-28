@@ -44,7 +44,7 @@ export function DashboardNavbar() {
               fixedNavbar ? "mt-1" : ""
             }`}
           >
-            <Link to={`/${layout}`}>
+            
               <Typography
                 variant="small"
                 color="blue-gray"
@@ -52,7 +52,6 @@ export function DashboardNavbar() {
               >
                 {layout}
               </Typography>
-            </Link>
             <Typography
               variant="small"
               color="blue-gray"

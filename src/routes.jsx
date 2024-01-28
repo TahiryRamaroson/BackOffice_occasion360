@@ -1,12 +1,11 @@
 import {
   PresentationChartBarIcon,
-  TableCellsIcon,
   ServerStackIcon,
   RectangleStackIcon,
   DocumentTextIcon,
   ComputerDesktopIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Annonce, Tables, Gestion, Details } from "@/pages/dashboard";
+import { Home, Annonce, Gestion, Details, Marque, Modele, Categorie, Etat, Pays, Energie } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 
 const icon = {
@@ -22,35 +21,70 @@ export const routes = [
         name: "Statistique",
         path: "/home",
         element: <Home />,
-        op: "1",
+        op: "",
       },
       {
         icon: <DocumentTextIcon {...icon} />,
         name: "Annonce",
         path: "/annonce",
         element: <Annonce />,
-        op: "1",
-      },
-      {
-        icon: <TableCellsIcon {...icon} />,
-        name: "tables",
-        path: "/tables",
-        element: <Tables />,
-        op: "1",
+        op: "",
       },
       {
         icon: <ComputerDesktopIcon {...icon} />,
         name: "Gestion",
         path: "/gestion",
         element: <Gestion />,
-        op: "1",
+        op: "",
       },
       {
         icon: <ComputerDesktopIcon {...icon} />,
         name: "Details",
         path: "/details",
         element: <Details />,
-        op: "0",
+        op: "none",
+      },
+      {
+        icon: <ComputerDesktopIcon {...icon} />,
+        name: "Marque",
+        path: "/marque",
+        element: <Marque />,
+        op: "none",
+      },
+      {
+        icon: <ComputerDesktopIcon {...icon} />,
+        name: "Modèle",
+        path: "/modele",
+        element: <Modele />,
+        op: "none",
+      },
+      {
+        icon: <ComputerDesktopIcon {...icon} />,
+        name: "Catégorie",
+        path: "/categorie",
+        element: <Categorie />,
+        op: "none",
+      },
+      {
+        icon: <ComputerDesktopIcon {...icon} />,
+        name: "Etat",
+        path: "/etat",
+        element: <Etat />,
+        op: "none",
+      },
+      {
+        icon: <ComputerDesktopIcon {...icon} />,
+        name: "Pays",
+        path: "/pays",
+        element: <Pays />,
+        op: "none",
+      },
+      {
+        icon: <ComputerDesktopIcon {...icon} />,
+        name: "Energie",
+        path: "/energie",
+        element: <Energie />,
+        op: "none",
       },
     ],
   },

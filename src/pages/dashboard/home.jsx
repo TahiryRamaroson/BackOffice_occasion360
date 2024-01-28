@@ -27,6 +27,7 @@ import {
 } from "@/data";
 import { CheckCircleIcon, ClockIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 export function Home() {
 
@@ -38,11 +39,19 @@ export function Home() {
       const token = localStorage.getItem('authToken');
 
       // Si le token est présent, l'utilisateur est connecté
-      if (token) {
-        console.log('utilisateur connecté');
-      } else {
+      if (!token) {
         navigate('/auth/sign-in');
       }
+
+      try {
+        const decodedtoken = jwtDecode(token);
+        const now = Date.now() / 1000;
+        if(now > decodedtoken.exp) localStorage.removeItem('authToken');
+      } catch (error) {
+        localStorage.removeItem('authToken');
+        navigate('/auth/sign-in');
+      }
+
     };
 
     // Appel de la fonction de vérification lors du chargement de la page

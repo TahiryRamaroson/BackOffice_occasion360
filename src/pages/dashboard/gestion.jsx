@@ -4,7 +4,8 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import {useEffect} from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 export function Gestion() {
 
@@ -15,12 +16,19 @@ export function Gestion() {
     const checkToken = () => {
       const token = localStorage.getItem('authToken');
 
-      // Si le token est présent, l'utilisateur est connecté
-      if (token) {
-        console.log('utilisateur connecté');
-      } else {
+      if (!token) {
         navigate('/auth/sign-in');
       }
+
+      try {
+        const decodedtoken = jwtDecode(token);
+        const now = Date.now() / 1000;
+        if(now > decodedtoken.exp) localStorage.removeItem('authToken');
+      } catch (error) {
+        localStorage.removeItem('authToken');
+        navigate('/auth/sign-in');
+      }
+
     };
 
     // Appel de la fonction de vérification lors du chargement de la page
@@ -29,8 +37,104 @@ export function Gestion() {
 
   return (
     <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
-      {Array.from({ length: 10 }, (_, index) => (
-      <Card key={index} color="gray" variant="gradient" className="w-full max-w-[20rem] p-8">
+
+    <Link to="/dashboard/marque"> 
+      <Card color="gray" variant="gradient" className="w-full max-w-[20rem] p-8">
+        <CardBody
+          floated={false}
+          shadow={false}
+          color="transparent"
+          className="m-0 mb-8 rounded-none border-none border-white/10 pb-8 text-center"
+        >
+          <Typography
+            variant="h1"
+            color="white"
+            className="mt-6 flex justify-center gap-1 text-4xl font-normal"
+          >
+            Marque
+          </Typography>
+        </CardBody>
+      </Card>
+    </Link>
+
+    <Link to="/dashboard/modele">
+      <Card color="gray" variant="gradient" className="w-full max-w-[20rem] p-8">
+        <CardBody
+          floated={false}
+          shadow={false}
+          color="transparent"
+          className="m-0 mb-8 rounded-none border-none border-white/10 pb-8 text-center"
+        >
+          <Typography
+            variant="h1"
+            color="white"
+            className="mt-6 flex justify-center gap-1 text-4xl font-normal"
+          >
+            Modèle
+          </Typography>
+        </CardBody>
+      </Card>
+    </Link>
+
+    <Link to="/dashboard/categorie">
+      <Card color="gray" variant="gradient" className="w-full max-w-[20rem] p-8">
+        <CardBody
+          floated={false}
+          shadow={false}
+          color="transparent"
+          className="m-0 mb-8 rounded-none border-none border-white/10 pb-8 text-center"
+        >
+          <Typography
+            variant="h1"
+            color="white"
+            className="mt-6 flex justify-center gap-1 text-4xl font-normal"
+          >
+            Catégorie
+          </Typography>
+        </CardBody>
+      </Card>
+    </Link>
+
+    <Link to="/dashboard/etat">
+      <Card color="gray" variant="gradient" className="w-full max-w-[20rem] p-8">
+        <CardBody
+          floated={false}
+          shadow={false}
+          color="transparent"
+          className="m-0 mb-8 rounded-none border-none border-white/10 pb-8 text-center"
+        >
+          <Typography
+            variant="h1"
+            color="white"
+            className="mt-6 flex justify-center gap-1 text-4xl font-normal"
+          >
+            Etat
+          </Typography>
+        </CardBody>
+      </Card>
+    </Link>
+
+    <Link to="/dashboard/pays">
+      <Card color="gray" variant="gradient" className="w-full max-w-[20rem] p-8">
+        <CardBody
+          floated={false}
+          shadow={false}
+          color="transparent"
+          className="m-0 mb-8 rounded-none border-none border-white/10 pb-8 text-center"
+        >
+          <Typography
+            variant="h1"
+            color="white"
+            className="mt-6 flex justify-center gap-1 text-4xl font-normal"
+          >
+            Pays
+          </Typography>
+        </CardBody>
+      </Card>
+    </Link>
+
+    <Link to="/dashboard/energie">
+    <Card color="gray" variant="gradient" className="w-full max-w-[20rem] p-8">
       <CardBody
         floated={false}
         shadow={false}
@@ -42,12 +146,14 @@ export function Gestion() {
           color="white"
           className="mt-6 flex justify-center gap-1 text-4xl font-normal"
         >
-          Marque
+          Energie
         </Typography>
       </CardBody>
     </Card>
-    ))}
+    </Link>
+    <br/>
     </div>
+    
   );
 }
 
