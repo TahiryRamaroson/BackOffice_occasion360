@@ -5,18 +5,25 @@ import {
   CardFooter,
   Typography,
   Button,
+  IconButton,
+  Popover,
+  PopoverHandler,
+  PopoverContent,
+  Tooltip,
+  Carousel,
+
 } from "@material-tailwind/react";
 import {
   InformationCircleIcon,
 } from "@heroicons/react/24/solid";
-import { Link, useNavigate } from "react-router-dom";
-import { projectsData } from "@/data";
-import { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
 
 export function Annonce() {
 
   const navigate = useNavigate();
+  const [dataAnnonces, setDataAnnonces] = useState([]);
 
   useEffect(() => {
     // Fonction pour vérifier la présence du token dans le localStorage
@@ -39,9 +46,73 @@ export function Annonce() {
 
     };
 
+    const getAnnonces = async () => {
+  
+      const apiAnnonce = "https://test-springboot-production.up.railway.app/annonces"; 
+
+      try {
+        const reponsePays = await fetch(apiAnnonce, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+          },
+        });
+        if (!reponsePays.ok) {
+          throw new Error('Erreur lors de la demande.');
+        }
+        const data = await reponsePays.json();
+        setDataAnnonces(data.result);
+        console.log("dataAnnonce après la mise à jour d'état :", data);
+      } catch (error) {
+        console.error("nisy erreuuuurrrr: " + error.message);
+      }
+
+    };
+
     // Appel de la fonction de vérification lors du chargement de la page
     checkToken();
+    getAnnonces();
     }, []);
+
+    const submitAccepter = async (e, id) => {
+      e.preventDefault();
+
+      const annonce1Array = dataAnnonces.filter((item) => item.id == id);
+      const annonce1 = annonce1Array.length > 0 ? annonce1Array[0] : null;
+      annonce1.status = "10";
+      console.log("Annonce après validation : " + JSON.stringify(annonce1));
+  
+      // Votre logique pour envoyer les données vers l'API
+      const apimodif = "https://test-springboot-production.up.railway.app/annonces/" + id;
+  
+      try {
+        const response = await fetch(apimodif , {
+          method: 'PUT', 
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+          },
+          body: JSON.stringify(annonce1),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Erreur lors de la demande.');
+        }
+  
+        const responseData = await response.json();
+        console.log('Réponse de API accept Annonce :', responseData);
+        //dataMarques.push(responseData.result);
+        //window.location.reload();
+        // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
+      } catch (error) {
+        console.error('Erreur lors de la soumission du formulaire :', error.message);
+      }
+    };
+
+
+    const filteredAnnonce = dataAnnonces.filter((item) => item.status == "0");
+    
 
   return (
     <>
@@ -56,55 +127,108 @@ export function Annonce() {
             </Typography>
             <br/>
             <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-4">
-              {projectsData.map(
-                ({ img, title, description, tag, route, members }) => (
-                  <Card key={title} color="transparent" shadow={false}>
+            { dataAnnonces && filteredAnnonce.map(
+                ({id, datePub, prix, utilisateur, voiture, description}) => (
+                  <Card key={id} color="transparent" shadow={false}>
                     <CardHeader
                       floated={false}
                       color="gray"
                       className="mx-0 mt-0 mb-4 h-64 xl:h-40"
                     >
                       <img
-                        src={img}
-                        alt={title}
+                        src="/img/Occasion360_logo.png"
+                        alt="/img/Occasion360_logo.png"
                         className="h-full w-full object-cover"
                       />
                     </CardHeader>
                     <CardBody className="py-0 px-1">
                       <Typography
-                        variant="small"
-                        className="font-normal text-blue-gray-500"
-                      >
-                        {tag}
-                      </Typography>
-                      <Typography
                         variant="h5"
                         color="blue-gray"
                         className="mt-1 mb-2"
                       >
-                        {title}
+                        {voiture.marque.nom + " " + voiture.modele.nom}
                       </Typography>
                       <Typography
                         variant="small"
                         className="font-normal text-blue-gray-500"
                       >
-                        {description}
+                        Le {datePub} par {utilisateur.nom + " " + utilisateur.prenom}
                       </Typography>
                     </CardBody>
                     <CardFooter className="mt-6 flex items-center justify-between py-0 px-1">
-                        <Button variant="outlined" size="sm">
+                        <Button variant="outlined" size="sm" onClick={(e) => submitAccepter(e, id)}>
                           valider
                         </Button>
-                        <Button variant="outlined" size="sm">
+                        <Button variant="outlined" size="sm" >
                           refuser
                         </Button>
-                        <Link to="/dashboard/details">
-                          <InformationCircleIcon className="h-10 w-10 text-blue-gray-500" />
-                        </Link>
+                        <Popover
+                      animate={{
+                        mount: { scale: 1, y: 0 },
+                        unmount: { scale: 0, y: 25 },
+                      }}
+                    >
+                      <PopoverHandler>
+                        
+                          <IconButton variant="text">
+                          <Tooltip content="Voir détails">
+                            <Button className="bg-transparent">
+                              <InformationCircleIcon className="h-10 w-10 text-blue-gray-500" />
+                            </Button>
+                            </Tooltip>
+                          </IconButton>
+                        
+                      </PopoverHandler>
+                      <PopoverContent className="z-[999] grid w-[28rem] grid-cols-1 overflow-hidden p-0">
+                      <Card className="mt-6 w-full" style={{margin:'auto'}}>
+                        
+                          
+                            <div className="z-[999] grid w-[28rem] grid-cols-2 overflow-hidden p-0">
+                              <div className="ml-2">
+                              <Typography className="mt-2">Marque: {voiture.marque.nom} </Typography>
+                                <Typography className="mt-2">Modèle: {voiture.modele.nom} </Typography>
+                                <Typography className="mt-2">Catégorie: {voiture.categorie.nom} </Typography>
+                                <Typography className="mt-2">Année de mise en circulation: {voiture.modele.anneeSortie} </Typography>
+                                <Typography className="mt-2">Energie: {voiture.energie.nom} </Typography>
+                              </div>
+                              <div className="ml-2">
+                              <Typography className="mt-2">Boite de vitesse: {voiture.boite.nom} </Typography>
+                                <Typography className="mt-2">Etat: {voiture.etatVoiture.nom} </Typography>
+                                <Typography className="mt-2">Kilometrage: {voiture.kilometrage} </Typography>
+                                <Typography className="mt-2">matricule: {voiture.matricule} </Typography>
+                                <Typography className="mt-2">description: {description} </Typography>
+                              </div>
+                            </div>
+                            
+                            <Typography variant="h3" color="green" className="mt-2" style={{margin: 'auto'}}>{prix} Ar</Typography>
+
+                              <Carousel className="rounded-xl w-1/2 h-64" style={{margin: 'auto'}}>
+                              <img
+                                  src="/img/Occasion360_logo.png"
+                                  alt="image 1"
+                                  className="h-full w-full object-cover"
+                              />
+                              <img
+                                  src="/img/Occasion360_logo.png"
+                                  alt="image 2"
+                                  className="h-full w-full object-cover"
+                              />
+                              <img
+                                  src="/img/Occasion360_logo.png"
+                                  alt="image 3"
+                                  className="h-full w-full object-cover"
+                              />
+                              </Carousel>
+                        </Card>
+                      </PopoverContent>
+                    </Popover>
+                        
+                          
+                        
                     </CardFooter>
                   </Card>
-                )
-              )}
+                ))}
             </div>
           </div>
         </CardBody>

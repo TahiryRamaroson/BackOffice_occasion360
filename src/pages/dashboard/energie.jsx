@@ -120,7 +120,7 @@ import { jwtDecode } from "jwt-decode";
         const responseData = await response.json();
         console.log('Réponse de API ajout energie :', responseData);
         //dataMarques.push(responseData.result);
-        window.location.reload();
+        navigate('/dashboard/gestion');
         // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
@@ -150,7 +150,7 @@ import { jwtDecode } from "jwt-decode";
         const responseData = await response.json();
         console.log('Réponse de API ajout Categorie :', responseData);
         //dataMarques.push(responseData.result);
-        window.location.reload();
+        navigate('/dashboard/gestion');
         // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
@@ -175,7 +175,7 @@ import { jwtDecode } from "jwt-decode";
   
         //const responseData = await response.json();
         //console.log('Réponse de API ajout marque :', responseData);
-        window.location.reload();
+        navigate('/dashboard/gestion');
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
       }
