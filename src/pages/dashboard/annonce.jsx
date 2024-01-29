@@ -75,29 +75,23 @@ export function Annonce() {
     getAnnonces();
     }, []);
 
-    const structAccept = {
-      "voiture" : {
-        "id_categorie" : 1,
-        "id_marque" : 1,
-        "id_modele" : 1,
-        "id_energie" : 1,
-        "id_boitevitesse" : 1,
-        "id_etatvoiture" : 1,
-        "kilometrage" : 1200,
-        "matricule" : "1TGBE"
-    },
-    "description" : "Description courte",
-    "prix" : 1400000,
-    "status" : 10
-    }
+    
 
     const submitAccepter = async (e, id) => {
       e.preventDefault();
 
+      const structAccept = {
+      id_voiture : "",  
+      prix : "",
+      status : "10"
+      }
+
       const annonce1Array = dataAnnonces.filter((item) => item.id == id);
       const annonce1 = annonce1Array.length > 0 ? annonce1Array[0] : null;
-      annonce1.status = "10";
-      console.log("Annonce après validation : " + JSON.stringify(annonce1));
+      //annonce1.status = "10";
+      structAccept.id_voiture = annonce1.voiture.id;
+      structAccept.prix = annonce1.prix;
+      console.log("Annonce après validation : " + JSON.stringify(structAccept));
   
       // Votre logique pour envoyer les données vers l'API
       const apimodif = "https://test-springboot-production.up.railway.app/annonces/" + id;
@@ -109,7 +103,7 @@ export function Annonce() {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
           },
-          body: JSON.stringify(annonce1),
+          body: JSON.stringify(structAccept),
         });
   
         if (!response.ok) {
@@ -120,6 +114,7 @@ export function Annonce() {
         console.log('Réponse de API accept Annonce :', responseData);
         //dataMarques.push(responseData.result);
         //window.location.reload();
+        navigate('/dashboard/home');
         // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
@@ -129,10 +124,18 @@ export function Annonce() {
     const submitRefuser = async (e, id) => {
       e.preventDefault();
 
+      const structRefuse = {
+      id_voiture : "",  
+      prix : "",
+      status : "-10"
+      }
+
       const annonce1Array = dataAnnonces.filter((item) => item.id == id);
       const annonce1 = annonce1Array.length > 0 ? annonce1Array[0] : null;
-      annonce1.status = "-10";
-      console.log("Annonce après validation : " + JSON.stringify(annonce1));
+      //annonce1.status = "10";
+      structRefuse.id_voiture = annonce1.voiture.id;
+      structRefuse.prix = annonce1.prix;
+      console.log("Annonce après validation : " + JSON.stringify(structRefuse));
   
       // Votre logique pour envoyer les données vers l'API
       const apimodif = "https://test-springboot-production.up.railway.app/annonces/" + id;
@@ -144,7 +147,7 @@ export function Annonce() {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
           },
-          body: JSON.stringify(annonce1),
+          body: JSON.stringify(structRefuse),
         });
   
         if (!response.ok) {
@@ -155,6 +158,7 @@ export function Annonce() {
         console.log('Réponse de API accept Annonce :', responseData);
         //dataMarques.push(responseData.result);
         //window.location.reload();
+        navigate('/dashboard/home');
         // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
