@@ -151,7 +151,25 @@ export function Gestion() {
       </CardBody>
     </Card>
     </Link>
-    <br/>
+
+    <Link to="/dashboard/boitevitesse">
+    <Card color="gray" variant="gradient" className="w-full max-w-[20rem] p-8 mb-10">
+      <CardBody
+        floated={false}
+        shadow={false}
+        color="transparent"
+        className="m-0 mb-8 rounded-none border-none border-white/10 pb-8 text-center"
+      >
+        <Typography
+          variant="h1"
+          color="white"
+          className="mt-6 flex justify-center gap-1 text-4xl font-normal"
+        >
+          Boite de vitesse
+        </Typography>
+      </CardBody>
+    </Card>
+    </Link>
     </div>
     
   );

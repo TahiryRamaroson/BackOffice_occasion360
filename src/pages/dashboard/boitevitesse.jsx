@@ -18,10 +18,10 @@ import {
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
   
-  export function Categorie() {
+  export function Boitevitesse() {
 
     const navigate = useNavigate();
-    const [dataCategories, setDataCategories] = useState([]);
+    const [dataBoites, setDataBoites] = useState([]);
     const [formAjout, setFormAjout] = useState({
         nom: '',
     });
@@ -48,135 +48,135 @@ import { jwtDecode } from "jwt-decode";
 
     };
 
-    const getCategories = async () => {
+    const getBoites = async () => {
   
-      const apiBoites = "https://test-springboot-production.up.railway.app/categories"; 
-
-      try {
-        const reponsePays = await fetch(apiBoites, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
-          },
-        });
-        if (!reponsePays.ok) {
-          throw new Error('Erreur lors de la demande.');
+        const apiBoites = "https://test-springboot-production.up.railway.app/boitevitesses"; 
+  
+        try {
+          const reponsePays = await fetch(apiBoites, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+            },
+          });
+          if (!reponsePays.ok) {
+            throw new Error('Erreur lors de la demande.');
+          }
+          const data = await reponsePays.json();
+          setDataBoites(data.result);
+          console.log("dataBoites après la mise à jour d'état :", data);
+        } catch (error) {
+          console.error("nisy erreuuuurrrr: " + error.message);
         }
-        const data = await reponsePays.json();
-        setDataCategories(data.result);
-        console.log("dataCategorie après la mise à jour d'état :", data);
-      } catch (error) {
-        console.error("nisy erreuuuurrrr: " + error.message);
-      }
-
+  
     };
 
     checkToken();
-    getCategories();
+    getBoites();
     }, []);
 
     const changeAjout = (e) => {
-      const { name, value } = e.target;
-      setFormAjout({
-        ...formAjout,
-        nom: value,
-      });
-      console.log(formAjout);
-  };
-
-  const changeModif = (e) => {
-      const { name, value } = e.target;
-      setFormModif({
-        ...formModif,
-        nom: value,
-      });
-      console.log(formModif);
-  };
-
-  const submitAjout = async (e) => {
-      e.preventDefault();
-  
-      // Votre logique pour envoyer les données vers l'API
-      const apiajout = "https://test-springboot-production.up.railway.app/categories";
-  
-      try {
-        const response = await fetch(apiajout , {
-          method: 'POST', 
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
-          },
-          body: JSON.stringify(formAjout),
+        const { name, value } = e.target;
+        setFormAjout({
+          ...formAjout,
+          nom: value,
         });
+        console.log(formAjout);
+    };
   
-        if (!response.ok) {
-          throw new Error('Erreur lors de la demande.');
-        }
-  
-        const responseData = await response.json();
-        console.log('Réponse de API ajout categorie :', responseData);
-        //dataMarques.push(responseData.result);
-        window.location.reload();
-        // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
-      } catch (error) {
-        console.error('Erreur lors de la soumission du formulaire :', error.message);
-      }
-  };
-
-  const submitModif = async (e, id) => {
-      e.preventDefault();
-  
-      // Votre logique pour envoyer les données vers l'API
-      const apimodif = "https://test-springboot-production.up.railway.app/categories/" + id;
-  
-      try {
-        const response = await fetch(apimodif , {
-          method: 'PUT', 
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
-          },
-          body: JSON.stringify(formModif),
+    const changeModif = (e) => {
+        const { name, value } = e.target;
+        setFormModif({
+          ...formModif,
+          nom: value,
         });
-  
-        if (!response.ok) {
-          throw new Error('Erreur lors de la demande.');
-        }
-  
-        const responseData = await response.json();
-        console.log('Réponse de API ajout Categorie :', responseData);
-        //dataMarques.push(responseData.result);
-        window.location.reload();
-        // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
-      } catch (error) {
-        console.error('Erreur lors de la soumission du formulaire :', error.message);
-      }
+        console.log(formModif);
     };
 
-  const submitDelete = async (id) => {
+    const submitAjout = async (e) => {
+        e.preventDefault();
+    
+        // Votre logique pour envoyer les données vers l'API
+        const apiajoutBoites = "https://test-springboot-production.up.railway.app/boitevitesses";
+    
+        try {
+          const response = await fetch(apiajoutBoites , {
+            method: 'POST', 
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+            },
+            body: JSON.stringify(formAjout),
+          });
+    
+          if (!response.ok) {
+            throw new Error('Erreur lors de la demande.');
+          }
+    
+          const responseData = await response.json();
+          console.log('Réponse de API ajout marque :', responseData);
+          //dataMarques.push(responseData.result);
+          window.location.reload();
+          // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
+        } catch (error) {
+          console.error('Erreur lors de la soumission du formulaire :', error.message);
+        }
+    };
+
+    const submitModif = async (e, id) => {
+        e.preventDefault();
+    
+        // Votre logique pour envoyer les données vers l'API
+        const apimodifBoite = "https://test-springboot-production.up.railway.app/boitevitesses/" + id;
+    
+        try {
+          const response = await fetch(apimodifBoite , {
+            method: 'PUT', 
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+            },
+            body: JSON.stringify(formModif),
+          });
+    
+          if (!response.ok) {
+            throw new Error('Erreur lors de la demande.');
+          }
+    
+          const responseData = await response.json();
+          console.log('Réponse de API ajout boite :', responseData);
+          //dataMarques.push(responseData.result);
+          window.location.reload();
+          // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
+        } catch (error) {
+          console.error('Erreur lors de la soumission du formulaire :', error.message);
+        }
+      };
   
-      // Votre logique pour envoyer les données vers l'API
-      const apidel = "https://test-springboot-production.up.railway.app/categories/" + id;
-  
-      try {
-        const response = await fetch(apidel , {
-          method: 'DELETE', 
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
-          },
-          
-        });
-  
-  
-        //const responseData = await response.json();
-        //console.log('Réponse de API ajout marque :', responseData);
-        window.location.reload();
-      } catch (error) {
-        console.error('Erreur lors de la soumission du formulaire :', error.message);
-      }
-  };
+    const submitDelete = async (id) => {
+    
+        // Votre logique pour envoyer les données vers l'API
+        const apidelBoite = "https://test-springboot-production.up.railway.app/boitevitesses/" + id;
+    
+        try {
+          const response = await fetch(apidelBoite , {
+            method: 'DELETE', 
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+            },
+            
+          });
+    
+    
+          //const responseData = await response.json();
+          //console.log('Réponse de API ajout marque :', responseData);
+          window.location.reload();
+        } catch (error) {
+          console.error('Erreur lors de la soumission du formulaire :', error.message);
+        }
+    };
 
     return (
       <div className="mt-12 mb-8 flex flex-col gap-12">
@@ -185,7 +185,7 @@ import { jwtDecode } from "jwt-decode";
         <div className="mt-5 ml-10 mb-8 flex items-center justify-between gap-8">
           <div>
             <Typography variant="h5" color="blue-gray">
-                Ajouter une catégorie
+                Ajouter une boite de vitesse
             </Typography>
           </div>
         </div>
@@ -194,9 +194,9 @@ import { jwtDecode } from "jwt-decode";
         <div className="ml-10 mr-10 flex flex-col items-center justify-between gap-4 md:flex-row">
           
             <Input 
-              label="Nom de la categorie"
-              name="nomCategorie"
-              value={formAjout.nomCategorie}
+              label="Nom de la boite"
+              name="nomBoite"
+              value={formAjout.nomBoite}
               onChange={changeAjout}
             />
 
@@ -219,7 +219,7 @@ import { jwtDecode } from "jwt-decode";
                     color="blue-gray"
                     className="font-normal leading-none opacity-70"
                   >
-                    Catégorie
+                    Boite de vitesse 
                   </Typography>
                 </th>
                 <th
@@ -237,7 +237,7 @@ import { jwtDecode } from "jwt-decode";
             </tr>
           </thead>
           <tbody>
-          { dataCategories && dataCategories.map(
+          { dataBoites && dataBoites.map(
                 ({id, nom}) => (
                   <tr key={id}>
                     <td className="p-4 border-b border-blue-gray-50 text-center">
@@ -261,7 +261,7 @@ import { jwtDecode } from "jwt-decode";
                       <PopoverHandler>
                         
                           <IconButton variant="text">
-                          <Tooltip content="Modifier Catégorie">
+                          <Tooltip content="Modifier Boite de vitesse">
                             <Button>
                                 <PencilIcon className="h-4 w-4" />
                             </Button>
@@ -277,14 +277,14 @@ import { jwtDecode } from "jwt-decode";
                                 Nouveau nom
                               </Typography>
                               <Input
-                                size="lg"
-                                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                                labelProps={{
-                                  className: "before:content-none after:content-none",
-                                }}
-                                name="newnomCategorie"
-                                value={formModif.newnomCategorie}
-                                onChange={changeModif}
+                              size="lg"
+                              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                              labelProps={{
+                                className: "before:content-none after:content-none",
+                              }}
+                              name="newnomBoite"
+                              value={formModif.newnomBoite}
+                              onChange={changeModif}
                               />
                             </div>
                             <Button className="mt-6" type="submit" fullWidth>
@@ -296,7 +296,7 @@ import { jwtDecode } from "jwt-decode";
                     </Popover>
                       
 
-                      <Tooltip content="Supprimer Catégorie">
+                      <Tooltip content="Supprimer Boite de vitesse">
                         <IconButton variant="text" className="ml-10">
                           <Button onClick={() => submitDelete(id)}>
                             <TrashIcon className="h-4 w-4" />
@@ -306,7 +306,7 @@ import { jwtDecode } from "jwt-decode";
                     </td>
 
                   </tr>
-                  ))}
+                ))}
           </tbody>
         </table>
       </CardBody>
@@ -329,5 +329,5 @@ import { jwtDecode } from "jwt-decode";
     );
   }
   
-  export default Categorie;
+  export default Boitevitesse;
   

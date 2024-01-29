@@ -16,13 +16,28 @@ import {
 
   import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 
-  import {useEffect} from "react";
+  import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
   
   export function Modele() {
 
     const navigate = useNavigate();
+    const [dataModeles, setDataModeles] = useState([]);
+    const [dataMarques, setDataMarques] = useState([]);
+    const [dataCategories, setDataCategories] = useState([]);
+    const [formAjout, setFormAjout] = useState({
+      nom: '',
+      anneeSortie: '',
+      id_categorie: '',
+      id_marque: '',
+    });
+    const [formModif, setFormModif] = useState({
+      nom: '',
+      anneeSortie: '',
+      id_categorie: '',
+      id_marque: '',
+    });
 
     useEffect(() => {
     // Fonction pour vérifier la présence du token dans le localStorage
@@ -45,9 +60,195 @@ import { jwtDecode } from "jwt-decode";
 
     };
 
+    const getModeles = async () => {
+  
+      const apiModele = "https://test-springboot-production.up.railway.app/modeles"; 
+
+      try {
+        const reponsePays = await fetch(apiModele, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+          },
+        });
+        if (!reponsePays.ok) {
+          throw new Error('Erreur lors de la demande.');
+        }
+        const data = await reponsePays.json();
+        setDataModeles(data.result);
+        console.log("dataMarques après la mise à jour d'état :", data);
+      } catch (error) {
+        console.error("nisy erreuuuurrrr: " + error.message);
+      }
+
+    };
+
+    const getMarques = async () => {
+  
+      const apiMarque = "https://test-springboot-production.up.railway.app/marques"; 
+
+      try {
+        const reponsePays = await fetch(apiMarque, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+          },
+        });
+        if (!reponsePays.ok) {
+          throw new Error('Erreur lors de la demande.');
+        }
+        const data = await reponsePays.json();
+        setDataMarques(data.result);
+        console.log("dataMarques après la mise à jour d'état :", data);
+      } catch (error) {
+        console.error("nisy erreuuuurrrr: " + error.message);
+      }
+
+    };
+
+    const getCategories = async () => {
+  
+      const apiBoites = "https://test-springboot-production.up.railway.app/categories"; 
+
+      try {
+        const reponsePays = await fetch(apiBoites, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+          },
+        });
+        if (!reponsePays.ok) {
+          throw new Error('Erreur lors de la demande.');
+        }
+        const data = await reponsePays.json();
+        setDataCategories(data.result);
+        console.log("dataCategorie après la mise à jour d'état :", data);
+      } catch (error) {
+        console.error("nisy erreuuuurrrr: " + error.message);
+      }
+
+    };
+
     // Appel de la fonction de vérification lors du chargement de la page
     checkToken();
+    getModeles();
+    getMarques();
+    getCategories();
     }, []);
+
+    const changeAjout = (e) => {
+      const { name, value } = e.target;
+      setFormAjout({
+        ...formAjout,
+        [name]: value,
+      });
+      console.log(formAjout);
+    };
+
+    const changeModifnom = (e) => {
+      const { name, value } = e.target;
+      setFormModif({
+        ...formModif,
+        nom: value,
+      });
+      console.log(formModif);
+    };
+
+    const changeModifannee = (e) => {
+      const { name, value } = e.target;
+      setFormModif({
+        ...formModif,
+        anneeSortie: value,
+      });
+      console.log(formModif);
+    };
+
+    const submitAjout = async (e) => {
+      e.preventDefault();
+  
+      // Votre logique pour envoyer les données vers l'API
+      const apiajoutMarque = "https://test-springboot-production.up.railway.app/modeles";
+  
+      try {
+        const response = await fetch(apiajoutMarque , {
+          method: 'POST', 
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+          },
+          body: JSON.stringify(formAjout),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Erreur lors de la demande.');
+        }
+  
+        const responseData = await response.json();
+        console.log('Réponse de API ajout marque :', responseData);
+        //dataMarques.push(responseData.result);
+        window.location.reload();
+        // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
+      } catch (error) {
+        console.error('Erreur lors de la soumission du formulaire :', error.message);
+      }
+    };
+
+    const submitModif = async (e, id) => {
+      e.preventDefault();
+  
+      // Votre logique pour envoyer les données vers l'API
+      const apimodifMarque = "https://test-springboot-production.up.railway.app/modeles/" + id;
+  
+      try {
+        const response = await fetch(apimodifMarque , {
+          method: 'PUT', 
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+          },
+          body: JSON.stringify(formModif),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Erreur lors de la demande.');
+        }
+  
+        const responseData = await response.json();
+        console.log('Réponse de API ajout marque :', responseData);
+        //dataMarques.push(responseData.result);
+        window.location.reload();
+        // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
+      } catch (error) {
+        console.error('Erreur lors de la soumission du formulaire :', error.message);
+      }
+    };
+
+    const submitDelete = async (id) => {
+  
+      // Votre logique pour envoyer les données vers l'API
+      const apidelMarque = "https://test-springboot-production.up.railway.app/modeles/" + id;
+  
+      try {
+        const response = await fetch(apidelMarque , {
+          method: 'DELETE', 
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+          },
+          
+        });
+  
+  
+        //const responseData = await response.json();
+        //console.log('Réponse de API ajout marque :', responseData);
+        window.location.reload();
+      } catch (error) {
+        console.error('Erreur lors de la soumission du formulaire :', error.message);
+      }
+    };
 
     return (
       <div className="mt-12 mb-8 flex flex-col gap-12">
@@ -60,21 +261,62 @@ import { jwtDecode } from "jwt-decode";
             </Typography>
           </div>
         </div>
+        <form  onSubmit={submitAjout} >
         <div className="ml-10 mr-10 flex flex-col items-center justify-between gap-4 md:flex-row">
           
-            <Input label="Non du modèle"/>
+          <Input label="Nom du modèle"
+          name="nom"
+          value={formAjout.nom}
+          onChange={changeAjout}
+          />
 
-            <Select label="Marque">
-              <Option>Material Tailwind HTML</Option>
-              <Option>Material Tailwind React</Option>
-              <Option>Material Tailwind Vue</Option>
-              <Option>Material Tailwind Angular</Option>
-              <Option>Material Tailwind Svelte</Option>
-            </Select>
+          <Input label="Année de sortie" type="number"
+          name="anneeSortie"
+          value={formAjout.anneeSortie}
+          onChange={changeAjout}
+          />
 
-            <Button variant="gradient">Valider</Button>
-          
+          <Select label="Marque"
+          selected={(element) =>
+            {
+             if (element) {
+               const selectedValue = element.props.value;
+               console.log('Selected Value:', selectedValue);
+              formAjout.id_marque = selectedValue.id;
+              return selectedValue.nom;
+             }
+            }
+          }
+          >
+          { dataMarques && dataMarques.map(
+              ({id, nom}) => (
+            <Option key={id} value={{id, nom}}>{nom}</Option>
+              ))}
+          </Select>
+
+          <Select label="Catégorie"
+          selected={(element) =>
+            {
+             if (element) {
+               const selectedValue = element.props.value;
+               console.log('Selected Value:', selectedValue);
+              formAjout.id_categorie = selectedValue.id;
+              return selectedValue.nom;
+             }
+            }
+          }
+          >
+          { dataCategories && dataCategories.map(
+              ({id, nom}) => (
+            <Option key={id} value={{id, nom}}>{nom}</Option>
+              ))}
+          </Select>
+
+          <Button variant="gradient" type="submit">Valider</Button>
+        
         </div>
+        </form>
+        
       
       <CardBody className="overflow-scroll px-0">
         <table className="mt-12 w-full min-w-max table-auto">
@@ -100,7 +342,29 @@ import { jwtDecode } from "jwt-decode";
                     color="blue-gray"
                     className="font-normal leading-none opacity-70"
                   >
+                    Année de sortie
+                  </Typography>
+                </th>
+                <th
+                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
+                >
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal leading-none opacity-70"
+                  >
                     Marque
+                  </Typography>
+                </th>
+                <th
+                  className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
+                >
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal leading-none opacity-70"
+                  >
+                    Catégorie
                   </Typography>
                 </th>
                 <th
@@ -118,15 +382,34 @@ import { jwtDecode } from "jwt-decode";
             </tr>
           </thead>
           <tbody>
-            
-                  <tr>
+          { dataModeles && dataModeles.map(
+                ({id, nom, anneeSortie, categorie, marque}) => (
+                  <tr key={id}>
                     <td className="p-4 border-b border-blue-gray-50 text-center">
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal"
                           >
-                            E46
+                            {nom}
+                          </Typography>
+                    </td>
+                    <td className="p-4 border-b border-blue-gray-50 text-center">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {anneeSortie}
+                          </Typography>
+                    </td>
+                    <td className="p-4 border-b border-blue-gray-50 text-center">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {marque.nom}
                           </Typography>
                     </td>
                     <td className="p-4 border-b border-blue-gray-50 text-center">
@@ -135,7 +418,7 @@ import { jwtDecode } from "jwt-decode";
                           color="blue-gray"
                           className="font-normal"
                         >
-                          BMW
+                          {categorie.nom}
                         </Typography>
                     </td>
                     
@@ -160,7 +443,7 @@ import { jwtDecode } from "jwt-decode";
                       </PopoverHandler>
                       <PopoverContent>
                         <Card color="transparent" shadow={false}>
-                          <form className="mt-2 mb-2 w-80 max-w-screen-lg sm:w-96">
+                          <form className="mt-2 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={(e) => submitModif(e, id)}>
                             <div className="mb-1 flex flex-col gap-6">
                               <Typography variant="h6" color="blue-gray" className="-mb-3">
                                 Nouveau nom
@@ -171,23 +454,71 @@ import { jwtDecode } from "jwt-decode";
                                 labelProps={{
                                   className: "before:content-none after:content-none",
                                 }}
+                                name="nom"
+                                value={formModif.nom}
+                                onChange={changeModifnom}
+                              />
+                              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                                Nouvelle année de sortie
+                              </Typography>
+                              <Input
+                                size="lg"
+                                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                                labelProps={{
+                                  className: "before:content-none after:content-none",
+                                }}
+                                name="newanneeSortie"
+                                value={formModif.anneeSortie}
+                                onChange={changeModifannee}
                               />
                               <Typography variant="h6" color="blue-gray" className="-mb-3">
                                 Nouvelle marque
                               </Typography>
                               <Select 
                                 label="Marque"
+                                name="newMarque"
                                 size="lg"
-                                
+                                selected={(element) =>
+                                  {
+                                   if (element) {
+                                     const selectedValue = element.props.value;
+                                     console.log('Selected Value:', selectedValue);
+                                    formModif.id_marque = selectedValue.id;
+                                    return selectedValue.nom;
+                                   }
+                                  }
+                                }
                               >
-                                <Option>Material Tailwind HTML</Option>
-                                <Option>Material Tailwind React</Option>
-                                <Option>Material Tailwind Vue</Option>
-                                <Option>Material Tailwind Angular</Option>
-                                <Option>Material Tailwind Svelte</Option>
+                                { dataMarques && dataMarques.map(
+                                  ({id, nom}) => (
+                                    <Option key={id} value={{id, nom}}>{nom}</Option>
+                                  ))}
+                              </Select>
+                              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                                Nouvelle catégorie
+                              </Typography>
+                              <Select 
+                                label="Catégorie"
+                                size="lg"
+                                name="newCategorie"
+                                selected={(element) =>
+                                  {
+                                   if (element) {
+                                     const selectedValue = element.props.value;
+                                     console.log('Selected Value:', selectedValue);
+                                    formModif.id_categorie = selectedValue.id;
+                                    return selectedValue.nom;
+                                   }
+                                  }
+                                }
+                              >
+                                { dataCategories && dataCategories.map(
+                                  ({id, nom}) => (
+                                    <Option key={id} value={{id, nom}}>{nom}</Option>
+                                  ))}
                               </Select>
                             </div>
-                            <Button className="mt-6" fullWidth>
+                            <Button className="mt-6" type="submit" fullWidth>
                               Valider
                             </Button>
                           </form>
@@ -198,7 +529,7 @@ import { jwtDecode } from "jwt-decode";
 
                       <Tooltip content="Supprimer Modèle">
                         <IconButton variant="text" className="ml-10">
-                          <Button>
+                          <Button onClick={() => submitDelete(id)}>
                             <TrashIcon className="h-4 w-4" />
                           </Button>
                         </IconButton>
@@ -206,6 +537,7 @@ import { jwtDecode } from "jwt-decode";
                     </td>
 
                   </tr>
+                ))}
           </tbody>
         </table>
       </CardBody>

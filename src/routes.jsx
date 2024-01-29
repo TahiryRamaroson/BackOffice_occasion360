@@ -5,7 +5,7 @@ import {
   DocumentTextIcon,
   ComputerDesktopIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Annonce, Gestion, Details, Marque, Modele, Categorie, Etat, Pays, Energie } from "@/pages/dashboard";
+import { Home, Annonce, Gestion, Details, Marque, Modele, Categorie, Etat, Pays, Energie, Boitevitesse } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 
 const icon = {
@@ -86,6 +86,14 @@ export const routes = [
         element: <Energie />,
         op: "none",
       },
+      {
+        icon: <ComputerDesktopIcon {...icon} />,
+        name: "Boite de vitesse",
+        path: "/boitevitesse",
+        element: <Boitevitesse />,
+        op: "none",
+      },
+      
     ],
   },
   {
