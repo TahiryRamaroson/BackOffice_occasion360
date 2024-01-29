@@ -14,7 +14,7 @@ export function SignIn() {
   // État local pour suivre les valeurs du formulaire
   const [formData, setFormData] = useState({
     mail: 'admin@gmail.com',
-    password: '123admin',
+    password: 'admin',
   });
 
   // Gestionnaire d'événement pour la saisie des champs

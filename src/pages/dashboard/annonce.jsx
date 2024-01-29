@@ -48,7 +48,7 @@ export function Annonce() {
 
     const getAnnonces = async () => {
   
-      const apiAnnonce = "https://test-springboot-production.up.railway.app/annonces"; 
+      const apiAnnonce = "https://test-springboot-production.up.railway.app/annonces/back-office"; 
 
       try {
         const reponsePays = await fetch(apiAnnonce, {
@@ -74,6 +74,22 @@ export function Annonce() {
     checkToken();
     getAnnonces();
     }, []);
+
+    const structAccept = {
+      "voiture" : {
+        "id_categorie" : 1,
+        "id_marque" : 1,
+        "id_modele" : 1,
+        "id_energie" : 1,
+        "id_boitevitesse" : 1,
+        "id_etatvoiture" : 1,
+        "kilometrage" : 1200,
+        "matricule" : "1TGBE"
+    },
+    "description" : "Description courte",
+    "prix" : 1400000,
+    "status" : 10
+    }
 
     const submitAccepter = async (e, id) => {
       e.preventDefault();
@@ -110,8 +126,40 @@ export function Annonce() {
       }
     };
 
+    const submitRefuser = async (e, id) => {
+      e.preventDefault();
 
-    const filteredAnnonce = dataAnnonces.filter((item) => item.status == "0");
+      const annonce1Array = dataAnnonces.filter((item) => item.id == id);
+      const annonce1 = annonce1Array.length > 0 ? annonce1Array[0] : null;
+      annonce1.status = "-10";
+      console.log("Annonce après validation : " + JSON.stringify(annonce1));
+  
+      // Votre logique pour envoyer les données vers l'API
+      const apimodif = "https://test-springboot-production.up.railway.app/annonces/" + id;
+  
+      try {
+        const response = await fetch(apimodif , {
+          method: 'PUT', 
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+          },
+          body: JSON.stringify(annonce1),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Erreur lors de la demande.');
+        }
+  
+        const responseData = await response.json();
+        console.log('Réponse de API accept Annonce :', responseData);
+        //dataMarques.push(responseData.result);
+        //window.location.reload();
+        // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
+      } catch (error) {
+        console.error('Erreur lors de la soumission du formulaire :', error.message);
+      }
+    };
     
 
   return (
@@ -127,19 +175,21 @@ export function Annonce() {
             </Typography>
             <br/>
             <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-4">
-            { dataAnnonces && filteredAnnonce.map(
-                ({id, datePub, prix, utilisateur, voiture, description}) => (
+            { dataAnnonces && dataAnnonces.map(
+                ({id, datePub, prix, utilisateur, voiture, description, photos}) => (
                   <Card key={id} color="transparent" shadow={false}>
                     <CardHeader
                       floated={false}
                       color="gray"
                       className="mx-0 mt-0 mb-4 h-64 xl:h-40"
                     >
+                      {photos && photos.length > 0 && (
                       <img
-                        src="/img/Occasion360_logo.png"
-                        alt="/img/Occasion360_logo.png"
+                        src={photos[0].lien}
+                        alt="No image"
                         className="h-full w-full object-cover"
                       />
+                      )}
                     </CardHeader>
                     <CardBody className="py-0 px-1">
                       <Typography
@@ -160,7 +210,7 @@ export function Annonce() {
                         <Button variant="outlined" size="sm" onClick={(e) => submitAccepter(e, id)}>
                           valider
                         </Button>
-                        <Button variant="outlined" size="sm" >
+                        <Button variant="outlined" size="sm" onClick={(e) => submitRefuser(e, id)}>
                           refuser
                         </Button>
                         <Popover
@@ -204,21 +254,15 @@ export function Annonce() {
                             <Typography variant="h3" color="green" className="mt-2" style={{margin: 'auto'}}>{prix} Ar</Typography>
 
                               <Carousel className="rounded-xl w-1/2 h-64" style={{margin: 'auto'}}>
+                              { photos && photos.map(
+                                  ({id, lien}) => (
                               <img
-                                  src="/img/Occasion360_logo.png"
-                                  alt="image 1"
+                                  key={id}
+                                  src={lien}
+                                  alt="No image"
                                   className="h-full w-full object-cover"
                               />
-                              <img
-                                  src="/img/Occasion360_logo.png"
-                                  alt="image 2"
-                                  className="h-full w-full object-cover"
-                              />
-                              <img
-                                  src="/img/Occasion360_logo.png"
-                                  alt="image 3"
-                                  className="h-full w-full object-cover"
-                              />
+                                  ))}
                               </Carousel>
                         </Card>
                       </PopoverContent>
