@@ -106,7 +106,7 @@ import { jwtDecode } from "jwt-decode";
       const apiajout = "https://test-springboot-production.up.railway.app/etatvoitures";
 
       if (formAjout.nom == '' || formAjout.note == '') {
-        alert("Veuillez complétez tous les champs");
+        alert("Veuillez compléter tous les champs");
         throw new Error('Champ vide.');
       }
   
@@ -141,7 +141,7 @@ import { jwtDecode } from "jwt-decode";
       const apimodif = "https://test-springboot-production.up.railway.app/etatvoitures/" + id;
 
       if (formModif.nom == '' || formModif.note == '') {
-        alert("Veuillez complétez tous les champs");
+        alert("Veuillez compléter tous les champs");
         throw new Error('Champ vide.');
       }
   

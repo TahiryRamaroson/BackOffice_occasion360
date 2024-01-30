@@ -138,7 +138,7 @@ import { jwtDecode } from "jwt-decode";
       const apiajoutMarque = "https://test-springboot-production.up.railway.app/marques";
 
       if (formAjout.nom == '' || formAjout.id_paysmarque == '') {
-        alert("Veuillez complétez tous les champs");
+        alert("Veuillez compléter tous les champs");
         throw new Error('Champ vide.');
       }
   
@@ -173,7 +173,7 @@ import { jwtDecode } from "jwt-decode";
       const apimodifMarque = "https://test-springboot-production.up.railway.app/marques/" + id;
 
       if (formModif.nom == '' || formModif.id_paysmarque == '') {
-        alert("Veuillez complétez tous les champs");
+        alert("Veuillez compléter tous les champs");
         throw new Error('Champ vide.');
       }
   

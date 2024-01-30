@@ -101,7 +101,7 @@ import { jwtDecode } from "jwt-decode";
         const apiajoutBoites = "https://test-springboot-production.up.railway.app/boitevitesses";
 
         if (formAjout.nom == '') {
-          alert("Veuillez complétez tous les champs");
+          alert("Veuillez compléter tous les champs");
           throw new Error('Champ vide.');
         }
     
@@ -136,7 +136,7 @@ import { jwtDecode } from "jwt-decode";
         const apimodifBoite = "https://test-springboot-production.up.railway.app/boitevitesses/" + id;
 
         if (formModif.nom == '') {
-          alert("Veuillez complétez tous les champs");
+          alert("Veuillez compléter tous les champs");
           throw new Error('Champ vide.');
         }
     

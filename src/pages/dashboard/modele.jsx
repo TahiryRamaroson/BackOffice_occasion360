@@ -173,7 +173,7 @@ import { jwtDecode } from "jwt-decode";
       const apiajoutMarque = "https://test-springboot-production.up.railway.app/modeles";
 
       if (formAjout.nom == '' || formAjout.anneeSortie == '' || formAjout.id_categorie == '' || formAjout.id_marque == '') {
-        alert("Veuillez complétez tous les champs");
+        alert("Veuillez compléter tous les champs");
         throw new Error('Champ vide.');
       }
   
@@ -208,7 +208,7 @@ import { jwtDecode } from "jwt-decode";
       const apimodifMarque = "https://test-springboot-production.up.railway.app/modeles/" + id;
 
       if (formModif.nom == '' || formModif.anneeSortie == '' || formModif.id_categorie == '' || formModif.id_marque == '') {
-        alert("Veuillez complétez tous les champs");
+        alert("Veuillez compléter tous les champs");
         throw new Error('Champ vide.');
       }
   
