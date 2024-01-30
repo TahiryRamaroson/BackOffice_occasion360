@@ -102,6 +102,11 @@ import { jwtDecode } from "jwt-decode";
   
       // Votre logique pour envoyer les données vers l'API
       const apiajout = "https://test-springboot-production.up.railway.app/energies";
+
+      if (formAjout.nom == '') {
+        alert("Veuillez complétez tous les champs");
+        throw new Error('Champ vide.');
+      }
   
       try {
         const response = await fetch(apiajout , {
@@ -132,6 +137,11 @@ import { jwtDecode } from "jwt-decode";
   
       // Votre logique pour envoyer les données vers l'API
       const apimodif = "https://test-springboot-production.up.railway.app/energies/" + id;
+
+      if (formModif.nom == '') {
+        alert("Veuillez complétez tous les champs");
+        throw new Error('Champ vide.');
+      }
   
       try {
         const response = await fetch(apimodif , {
@@ -198,7 +208,8 @@ import { jwtDecode } from "jwt-decode";
             <Input label="Nom de l'énergie"
               name="nomEnergie"
               value={formAjout.nomEnergie}
-              onChange={changeAjout}/>
+              onChange={changeAjout}
+              required/>
 
             <Button variant="gradient" type="submit">Valider</Button>
           
@@ -285,6 +296,7 @@ import { jwtDecode } from "jwt-decode";
                                 name="newnomEnergie"
                                 value={formModif.newnomEnergie}
                                 onChange={changeModif}
+                                required
                               />
                             </div>
                             <Button className="mt-6" type="submit" fullWidth>

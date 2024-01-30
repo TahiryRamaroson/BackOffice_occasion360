@@ -99,6 +99,11 @@ import { jwtDecode } from "jwt-decode";
   
       // Votre logique pour envoyer les données vers l'API
       const apiajout = "https://test-springboot-production.up.railway.app/categories";
+
+      if (formAjout.nom == '') {
+        alert("Veuillez complétez tous les champs");
+        throw new Error('Champ vide.');
+      }
   
       try {
         const response = await fetch(apiajout , {
@@ -129,6 +134,11 @@ import { jwtDecode } from "jwt-decode";
   
       // Votre logique pour envoyer les données vers l'API
       const apimodif = "https://test-springboot-production.up.railway.app/categories/" + id;
+
+      if (formModif.nom == '') {
+        alert("Veuillez complétez tous les champs");
+        throw new Error('Champ vide.');
+      }
   
       try {
         const response = await fetch(apimodif , {
@@ -198,6 +208,7 @@ import { jwtDecode } from "jwt-decode";
               name="nomCategorie"
               value={formAjout.nomCategorie}
               onChange={changeAjout}
+              required
             />
 
             <Button variant="gradient" type="submit">Valider</Button>
@@ -285,6 +296,7 @@ import { jwtDecode } from "jwt-decode";
                                 name="newnomCategorie"
                                 value={formModif.newnomCategorie}
                                 onChange={changeModif}
+                                required
                               />
                             </div>
                             <Button className="mt-6" type="submit" fullWidth>

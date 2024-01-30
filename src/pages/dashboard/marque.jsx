@@ -136,6 +136,11 @@ import { jwtDecode } from "jwt-decode";
   
       // Votre logique pour envoyer les données vers l'API
       const apiajoutMarque = "https://test-springboot-production.up.railway.app/marques";
+
+      if (formAjout.nom == '' || formAjout.id_paysmarque == '') {
+        alert("Veuillez complétez tous les champs");
+        throw new Error('Champ vide.');
+      }
   
       try {
         const response = await fetch(apiajoutMarque , {
@@ -166,6 +171,11 @@ import { jwtDecode } from "jwt-decode";
   
       // Votre logique pour envoyer les données vers l'API
       const apimodifMarque = "https://test-springboot-production.up.railway.app/marques/" + id;
+
+      if (formModif.nom == '' || formModif.id_paysmarque == '') {
+        alert("Veuillez complétez tous les champs");
+        throw new Error('Champ vide.');
+      }
   
       try {
         const response = await fetch(apimodifMarque , {
@@ -236,6 +246,7 @@ import { jwtDecode } from "jwt-decode";
               name="nomMarque"
               value={formAjout.nomMarque}
               onChange={changeAjout}
+              required
             />
 
             <Select
@@ -365,6 +376,7 @@ import { jwtDecode } from "jwt-decode";
                               name="newnomMarque"
                               value={formModif.newnomMarque}
                               onChange={changeModif}
+                              required
                             />
                             <Typography variant="h6" color="blue-gray" className="-mb-3">
                               Nouveau pays

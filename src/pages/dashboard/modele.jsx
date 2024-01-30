@@ -171,6 +171,11 @@ import { jwtDecode } from "jwt-decode";
   
       // Votre logique pour envoyer les données vers l'API
       const apiajoutMarque = "https://test-springboot-production.up.railway.app/modeles";
+
+      if (formAjout.nom == '' || formAjout.anneeSortie == '' || formAjout.id_categorie == '' || formAjout.id_marque == '') {
+        alert("Veuillez complétez tous les champs");
+        throw new Error('Champ vide.');
+      }
   
       try {
         const response = await fetch(apiajoutMarque , {
@@ -201,6 +206,11 @@ import { jwtDecode } from "jwt-decode";
   
       // Votre logique pour envoyer les données vers l'API
       const apimodifMarque = "https://test-springboot-production.up.railway.app/modeles/" + id;
+
+      if (formModif.nom == '' || formModif.anneeSortie == '' || formModif.id_categorie == '' || formModif.id_marque == '') {
+        alert("Veuillez complétez tous les champs");
+        throw new Error('Champ vide.');
+      }
   
       try {
         const response = await fetch(apimodifMarque , {
@@ -268,12 +278,14 @@ import { jwtDecode } from "jwt-decode";
           name="nom"
           value={formAjout.nom}
           onChange={changeAjout}
+          required
           />
 
           <Input label="Année de sortie" type="number"
           name="anneeSortie"
           value={formAjout.anneeSortie}
           onChange={changeAjout}
+          required
           />
 
           <Select label="Marque"
@@ -457,6 +469,7 @@ import { jwtDecode } from "jwt-decode";
                                 name="nom"
                                 value={formModif.nom}
                                 onChange={changeModifnom}
+                                required
                               />
                               <Typography variant="h6" color="blue-gray" className="-mb-3">
                                 Nouvelle année de sortie
@@ -470,6 +483,7 @@ import { jwtDecode } from "jwt-decode";
                                 name="newanneeSortie"
                                 value={formModif.anneeSortie}
                                 onChange={changeModifannee}
+                                required
                               />
                               <Typography variant="h6" color="blue-gray" className="-mb-3">
                                 Nouvelle marque

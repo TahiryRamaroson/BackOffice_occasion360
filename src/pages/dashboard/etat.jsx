@@ -104,6 +104,11 @@ import { jwtDecode } from "jwt-decode";
   
       // Votre logique pour envoyer les données vers l'API
       const apiajout = "https://test-springboot-production.up.railway.app/etatvoitures";
+
+      if (formAjout.nom == '' || formAjout.note == '') {
+        alert("Veuillez complétez tous les champs");
+        throw new Error('Champ vide.');
+      }
   
       try {
         const response = await fetch(apiajout , {
@@ -134,6 +139,11 @@ import { jwtDecode } from "jwt-decode";
   
       // Votre logique pour envoyer les données vers l'API
       const apimodif = "https://test-springboot-production.up.railway.app/etatvoitures/" + id;
+
+      if (formModif.nom == '' || formModif.note == '') {
+        alert("Veuillez complétez tous les champs");
+        throw new Error('Champ vide.');
+      }
   
       try {
         const response = await fetch(apimodif , {
@@ -201,12 +211,14 @@ import { jwtDecode } from "jwt-decode";
             <Input label="Nom de l'état"
               name="nom"
               value={formAjout.nom}
-              onChange={changeAjout}/>
+              onChange={changeAjout}
+              required/>
 
             <Input label="Note"
               name="note"
               value={formAjout.note}
-              onChange={changeAjout}/>
+              onChange={changeAjout}
+              required/>
 
             <Button variant="gradient" type="submit">Valider</Button>
           
@@ -313,6 +325,7 @@ import { jwtDecode } from "jwt-decode";
                                 name="nom"
                                 value={formModif.nom}
                                 onChange={changeModif}
+                                required
                               />
                               <Typography variant="h6" color="blue-gray" className="-mb-3">
                                 Nouvelle note
@@ -326,6 +339,7 @@ import { jwtDecode } from "jwt-decode";
                                 name="note"
                                 value={formModif.note}
                                 onChange={changeModif}
+                                required
                               />
                             </div>
                             <Button className="mt-6" type="submit" fullWidth>
