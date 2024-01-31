@@ -86,6 +86,11 @@ export function Annonce() {
       status : "10"
       }
 
+      const structCom = {
+        id_annonce : ""+id,
+        valeur : "15"
+      }
+
       const annonce1Array = dataAnnonces.filter((item) => item.id == id);
       const annonce1 = annonce1Array.length > 0 ? annonce1Array[0] : null;
       //annonce1.status = "10";
@@ -95,8 +100,19 @@ export function Annonce() {
   
       // Votre logique pour envoyer les données vers l'API
       const apimodif = "https://test-springboot-production.up.railway.app/annonces/" + id;
+      const apicom = "https://test-springboot-production.up.railway.app/commissions";
   
       try {
+
+        const responseCom = await fetch(apicom , {
+          method: 'POST', 
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+          },
+          body: JSON.stringify(structCom),
+        });
+
         const response = await fetch(apimodif , {
           method: 'PUT', 
           headers: {
@@ -107,11 +123,17 @@ export function Annonce() {
         });
   
         if (!response.ok) {
-          throw new Error('Erreur lors de la demande.');
+          throw new Error('Erreur lors de la demande modifier status annonce');
+        }
+
+        if (!responseCom.ok) {
+          throw new Error('Erreur lors de la demande ajout commission');
         }
   
         const responseData = await response.json();
+        const responseDataCom = await responseCom.json();
         console.log('Réponse de API accept Annonce :', responseData);
+        console.log('Réponse de API Commission :', responseDataCom);
         //dataMarques.push(responseData.result);
         //window.location.reload();
         navigate('/dashboard/home');
