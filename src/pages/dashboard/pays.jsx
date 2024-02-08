@@ -52,7 +52,7 @@ import { jwtDecode } from "jwt-decode";
 
     const getPays = async () => {
   
-      const apiPays = "https://test-springboot-production.up.railway.app/paysmarques"; 
+      const apiPays = "https://api-finalclouds5-production.up.railway.app/paysmarques"; 
 
       try {
         const reponsePays = await fetch(apiPays, {
@@ -101,7 +101,7 @@ import { jwtDecode } from "jwt-decode";
       e.preventDefault();
   
       // Votre logique pour envoyer les données vers l'API
-      const apiajout = "https://test-springboot-production.up.railway.app/paysmarques";
+      const apiajout = "https://api-finalclouds5-production.up.railway.app/paysmarques";
 
       if (formAjout.nom == '') {
         alert("Veuillez compléter tous les champs");
@@ -137,7 +137,7 @@ import { jwtDecode } from "jwt-decode";
       e.preventDefault();
   
       // Votre logique pour envoyer les données vers l'API
-      const apimodif = "https://test-springboot-production.up.railway.app/paysmarques/" + id;
+      const apimodif = "https://api-finalclouds5-production.up.railway.app/paysmarques/" + id;
 
       if (formModif.nom == '') {
         alert("Veuillez compléter tous les champs");
@@ -172,7 +172,7 @@ import { jwtDecode } from "jwt-decode";
   const submitDelete = async (id) => {
   
       // Votre logique pour envoyer les données vers l'API
-      const apidel = "https://test-springboot-production.up.railway.app/paysmarques/" + id;
+      const apidel = "https://api-finalclouds5-production.up.railway.app/paysmarques/" + id;
   
       try {
         const response = await fetch(apidel , {

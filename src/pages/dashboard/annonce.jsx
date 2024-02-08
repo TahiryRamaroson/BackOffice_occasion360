@@ -13,9 +13,11 @@ import {
   Carousel,
 
 } from "@material-tailwind/react";
+
 import {
   InformationCircleIcon,
 } from "@heroicons/react/24/solid";
+
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
@@ -48,7 +50,7 @@ export function Annonce() {
 
     const getAnnonces = async () => {
   
-      const apiAnnonce = "https://test-springboot-production.up.railway.app/annonces/back-office"; 
+      const apiAnnonce = "https://api-finalclouds5-production.up.railway.app/annonces/back-office"; 
 
       try {
         const reponsePays = await fetch(apiAnnonce, {
@@ -99,8 +101,8 @@ export function Annonce() {
       console.log("Annonce après validation : " + JSON.stringify(structAccept));
   
       // Votre logique pour envoyer les données vers l'API
-      const apimodif = "https://test-springboot-production.up.railway.app/annonces/" + id;
-      const apicom = "https://test-springboot-production.up.railway.app/commissions";
+      const apimodif = "https://api-finalclouds5-production.up.railway.app/annonces/" + id;
+      const apicom = "https://api-finalclouds5-production.up.railway.app/commissions";
   
       try {
 
@@ -160,7 +162,7 @@ export function Annonce() {
       console.log("Annonce après validation : " + JSON.stringify(structRefuse));
   
       // Votre logique pour envoyer les données vers l'API
-      const apimodif = "https://test-springboot-production.up.railway.app/annonces/" + id;
+      const apimodif = "https://api-finalclouds5-production.up.railway.app/annonces/" + id;
   
       try {
         const response = await fetch(apimodif , {

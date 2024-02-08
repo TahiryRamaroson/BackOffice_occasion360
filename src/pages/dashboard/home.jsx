@@ -43,7 +43,7 @@ export function Home() {
 
     const getStat = async () => {
   
-      const apiPays = "https://test-springboot-production.up.railway.app/stats"; 
+      const apiPays = "https://api-finalclouds5-production.up.railway.app/stats"; 
 
       try {
         const reponsePays = await fetch(apiPays, {
@@ -268,7 +268,7 @@ export function Home() {
             })}
             footer={
               <Typography className="font-normal text-blue-gray-600 text-center">
-                <strong>{dataStat.totalBenefice}</strong>
+                <strong>{dataStat.totalBenefice} Ar</strong>
               </Typography>
             }
           />
@@ -279,7 +279,7 @@ export function Home() {
             })}
             footer={
               <Typography className="font-normal text-blue-gray-600 text-center">
-                <strong>{dataStat.totalChiffreAffaire}</strong>
+                <strong>{dataStat.totalChiffreAffaire} Ar</strong>
               </Typography>
             }
           />

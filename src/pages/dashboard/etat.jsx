@@ -54,7 +54,7 @@ import { jwtDecode } from "jwt-decode";
 
     const getEtats = async () => {
   
-      const apiEtats = "https://test-springboot-production.up.railway.app/etatvoitures"; 
+      const apiEtats = "https://api-finalclouds5-production.up.railway.app/etatvoitures"; 
 
       try {
         const reponsePays = await fetch(apiEtats, {
@@ -103,7 +103,7 @@ import { jwtDecode } from "jwt-decode";
       e.preventDefault();
   
       // Votre logique pour envoyer les données vers l'API
-      const apiajout = "https://test-springboot-production.up.railway.app/etatvoitures";
+      const apiajout = "https://api-finalclouds5-production.up.railway.app/etatvoitures";
 
       if (formAjout.nom == '' || formAjout.note == '') {
         alert("Veuillez compléter tous les champs");
@@ -138,7 +138,7 @@ import { jwtDecode } from "jwt-decode";
       e.preventDefault();
   
       // Votre logique pour envoyer les données vers l'API
-      const apimodif = "https://test-springboot-production.up.railway.app/etatvoitures/" + id;
+      const apimodif = "https://api-finalclouds5-production.up.railway.app/etatvoitures/" + id;
 
       if (formModif.nom == '' || formModif.note == '') {
         alert("Veuillez compléter tous les champs");
@@ -172,7 +172,7 @@ import { jwtDecode } from "jwt-decode";
   const submitDelete = async (id) => {
   
       // Votre logique pour envoyer les données vers l'API
-      const apidel = "https://test-springboot-production.up.railway.app/etatvoitures/" + id;
+      const apidel = "https://api-finalclouds5-production.up.railway.app/etatvoitures/" + id;
   
       try {
         const response = await fetch(apidel , {

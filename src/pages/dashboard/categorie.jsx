@@ -50,7 +50,7 @@ import { jwtDecode } from "jwt-decode";
 
     const getCategories = async () => {
   
-      const apiBoites = "https://test-springboot-production.up.railway.app/categories"; 
+      const apiBoites = "https://api-finalclouds5-production.up.railway.app/categories"; 
 
       try {
         const reponsePays = await fetch(apiBoites, {
@@ -98,7 +98,7 @@ import { jwtDecode } from "jwt-decode";
       e.preventDefault();
   
       // Votre logique pour envoyer les données vers l'API
-      const apiajout = "https://test-springboot-production.up.railway.app/categories";
+      const apiajout = "https://api-finalclouds5-production.up.railway.app/categories";
 
       if (formAjout.nom == '') {
         alert("Veuillez compléter tous les champs");
@@ -133,7 +133,7 @@ import { jwtDecode } from "jwt-decode";
       e.preventDefault();
   
       // Votre logique pour envoyer les données vers l'API
-      const apimodif = "https://test-springboot-production.up.railway.app/categories/" + id;
+      const apimodif = "https://api-finalclouds5-production.up.railway.app/categories/" + id;
 
       if (formModif.nom == '') {
         alert("Veuillez compléter tous les champs");
@@ -167,7 +167,7 @@ import { jwtDecode } from "jwt-decode";
   const submitDelete = async (id) => {
   
       // Votre logique pour envoyer les données vers l'API
-      const apidel = "https://test-springboot-production.up.railway.app/categories/" + id;
+      const apidel = "https://api-finalclouds5-production.up.railway.app/categories/" + id;
   
       try {
         const response = await fetch(apidel , {

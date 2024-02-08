@@ -61,7 +61,7 @@ import { jwtDecode } from "jwt-decode";
 
     const getPays = async () => {
   
-      const apiPays = "https://test-springboot-production.up.railway.app/paysmarques"; 
+      const apiPays = "https://api-finalclouds5-production.up.railway.app/paysmarques"; 
 
       try {
         const reponsePays = await fetch(apiPays, {
@@ -85,7 +85,7 @@ import { jwtDecode } from "jwt-decode";
 
     const getMarques = async () => {
   
-      const apiMarque = "https://test-springboot-production.up.railway.app/marques"; 
+      const apiMarque = "https://api-finalclouds5-production.up.railway.app/marques"; 
 
       try {
         const reponsePays = await fetch(apiMarque, {
@@ -135,7 +135,7 @@ import { jwtDecode } from "jwt-decode";
       e.preventDefault();
   
       // Votre logique pour envoyer les données vers l'API
-      const apiajoutMarque = "https://test-springboot-production.up.railway.app/marques";
+      const apiajoutMarque = "https://api-finalclouds5-production.up.railway.app/marques";
 
       if (formAjout.nom == '' || formAjout.id_paysmarque == '') {
         alert("Veuillez compléter tous les champs");
@@ -170,7 +170,7 @@ import { jwtDecode } from "jwt-decode";
       e.preventDefault();
   
       // Votre logique pour envoyer les données vers l'API
-      const apimodifMarque = "https://test-springboot-production.up.railway.app/marques/" + id;
+      const apimodifMarque = "https://api-finalclouds5-production.up.railway.app/marques/" + id;
 
       if (formModif.nom == '' || formModif.id_paysmarque == '') {
         alert("Veuillez compléter tous les champs");
@@ -204,7 +204,7 @@ import { jwtDecode } from "jwt-decode";
     const submitDelete = async (id) => {
   
       // Votre logique pour envoyer les données vers l'API
-      const apidelMarque = "https://test-springboot-production.up.railway.app/marques/" + id;
+      const apidelMarque = "https://api-finalclouds5-production.up.railway.app/marques/" + id;
   
       try {
         const response = await fetch(apidelMarque , {

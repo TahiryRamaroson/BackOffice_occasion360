@@ -62,7 +62,7 @@ import { jwtDecode } from "jwt-decode";
 
     const getModeles = async () => {
   
-      const apiModele = "https://test-springboot-production.up.railway.app/modeles"; 
+      const apiModele = "https://api-finalclouds5-production.up.railway.app/modeles"; 
 
       try {
         const reponsePays = await fetch(apiModele, {
@@ -86,7 +86,7 @@ import { jwtDecode } from "jwt-decode";
 
     const getMarques = async () => {
   
-      const apiMarque = "https://test-springboot-production.up.railway.app/marques"; 
+      const apiMarque = "https://api-finalclouds5-production.up.railway.app/marques"; 
 
       try {
         const reponsePays = await fetch(apiMarque, {
@@ -110,7 +110,7 @@ import { jwtDecode } from "jwt-decode";
 
     const getCategories = async () => {
   
-      const apiBoites = "https://test-springboot-production.up.railway.app/categories"; 
+      const apiBoites = "https://api-finalclouds5-production.up.railway.app/categories"; 
 
       try {
         const reponsePays = await fetch(apiBoites, {
@@ -170,7 +170,7 @@ import { jwtDecode } from "jwt-decode";
       e.preventDefault();
   
       // Votre logique pour envoyer les données vers l'API
-      const apiajoutMarque = "https://test-springboot-production.up.railway.app/modeles";
+      const apiajoutMarque = "https://api-finalclouds5-production.up.railway.app/modeles";
 
       if (formAjout.nom == '' || formAjout.anneeSortie == '' || formAjout.id_categorie == '' || formAjout.id_marque == '') {
         alert("Veuillez compléter tous les champs");
@@ -205,7 +205,7 @@ import { jwtDecode } from "jwt-decode";
       e.preventDefault();
   
       // Votre logique pour envoyer les données vers l'API
-      const apimodifMarque = "https://test-springboot-production.up.railway.app/modeles/" + id;
+      const apimodifMarque = "https://api-finalclouds5-production.up.railway.app/modeles/" + id;
 
       if (formModif.nom == '' || formModif.anneeSortie == '' || formModif.id_categorie == '' || formModif.id_marque == '') {
         alert("Veuillez compléter tous les champs");
@@ -239,7 +239,7 @@ import { jwtDecode } from "jwt-decode";
     const submitDelete = async (id) => {
   
       // Votre logique pour envoyer les données vers l'API
-      const apidelMarque = "https://test-springboot-production.up.railway.app/modeles/" + id;
+      const apidelMarque = "https://api-finalclouds5-production.up.railway.app/modeles/" + id;
   
       try {
         const response = await fetch(apidelMarque , {
