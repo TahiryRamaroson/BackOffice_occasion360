@@ -48,6 +48,12 @@ import { jwtDecode } from "jwt-decode";
 
     };
 
+    
+
+    checkToken();
+    getCategories();
+    }, []);
+
     const getCategories = async () => {
   
       const apiBoites = "https://api-finalclouds5-production.up.railway.app/categories"; 
@@ -71,10 +77,6 @@ import { jwtDecode } from "jwt-decode";
       }
 
     };
-
-    checkToken();
-    getCategories();
-    }, []);
 
     const changeAjout = (e) => {
       const { name, value } = e.target;
@@ -122,7 +124,7 @@ import { jwtDecode } from "jwt-decode";
         const responseData = await response.json();
         console.log('Réponse de API ajout categorie :', responseData);
         //dataMarques.push(responseData.result);
-        navigate('/dashboard/gestion');
+        getCategories();
         // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
@@ -157,7 +159,7 @@ import { jwtDecode } from "jwt-decode";
         const responseData = await response.json();
         console.log('Réponse de API ajout Categorie :', responseData);
         //dataMarques.push(responseData.result);
-        navigate('/dashboard/gestion');
+        getCategories();
         // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
@@ -182,7 +184,7 @@ import { jwtDecode } from "jwt-decode";
   
         //const responseData = await response.json();
         //console.log('Réponse de API ajout marque :', responseData);
-        navigate('/dashboard/gestion');
+        getCategories();
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
       }

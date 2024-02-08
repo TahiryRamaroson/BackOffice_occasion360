@@ -27,6 +27,30 @@ export function Annonce() {
   const navigate = useNavigate();
   const [dataAnnonces, setDataAnnonces] = useState([]);
 
+  const getAnnonces = async () => {
+  
+    const apiAnnonce = "https://api-finalclouds5-production.up.railway.app/annonces/back-office"; 
+
+    try {
+      const reponsePays = await fetch(apiAnnonce, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+        },
+      });
+      if (!reponsePays.ok) {
+        throw new Error('Erreur lors de la demande.');
+      }
+      const data = await reponsePays.json();
+      setDataAnnonces(data.result);
+      console.log("dataAnnonce après la mise à jour d'état :", data);
+    } catch (error) {
+      console.error("nisy erreuuuurrrr: " + error.message);
+    }
+
+  };
+
   useEffect(() => {
     // Fonction pour vérifier la présence du token dans le localStorage
     const checkToken = () => {
@@ -48,29 +72,7 @@ export function Annonce() {
 
     };
 
-    const getAnnonces = async () => {
-  
-      const apiAnnonce = "https://api-finalclouds5-production.up.railway.app/annonces/back-office"; 
-
-      try {
-        const reponsePays = await fetch(apiAnnonce, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
-          },
-        });
-        if (!reponsePays.ok) {
-          throw new Error('Erreur lors de la demande.');
-        }
-        const data = await reponsePays.json();
-        setDataAnnonces(data.result);
-        console.log("dataAnnonce après la mise à jour d'état :", data);
-      } catch (error) {
-        console.error("nisy erreuuuurrrr: " + error.message);
-      }
-
-    };
+    
 
     // Appel de la fonction de vérification lors du chargement de la page
     checkToken();
@@ -138,7 +140,7 @@ export function Annonce() {
         console.log('Réponse de API Commission :', responseDataCom);
         //dataMarques.push(responseData.result);
         //window.location.reload();
-        navigate('/dashboard/home');
+        getAnnonces();
         // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
@@ -182,7 +184,7 @@ export function Annonce() {
         console.log('Réponse de API accept Annonce :', responseData);
         //dataMarques.push(responseData.result);
         //window.location.reload();
-        navigate('/dashboard/home');
+        getAnnonces();
         // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);

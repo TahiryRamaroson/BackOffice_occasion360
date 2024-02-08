@@ -52,6 +52,13 @@ import { jwtDecode } from "jwt-decode";
 
     };
 
+    
+
+    // Appel de la fonction de vérification lors du chargement de la page
+    checkToken();
+    getEtats();
+    }, []);
+
     const getEtats = async () => {
   
       const apiEtats = "https://api-finalclouds5-production.up.railway.app/etatvoitures"; 
@@ -75,11 +82,6 @@ import { jwtDecode } from "jwt-decode";
       }
 
     };
-
-    // Appel de la fonction de vérification lors du chargement de la page
-    checkToken();
-    getEtats();
-    }, []);
 
     const changeAjout = (e) => {
       const { name, value } = e.target;
@@ -127,7 +129,7 @@ import { jwtDecode } from "jwt-decode";
         const responseData = await response.json();
         console.log('Réponse de API ajout etat :', responseData);
         //dataMarques.push(responseData.result);
-        navigate('/dashboard/gestion');
+        getEtats();
         // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
@@ -162,7 +164,7 @@ import { jwtDecode } from "jwt-decode";
         const responseData = await response.json();
         console.log('Réponse de API ajout Etat :', responseData);
         //dataMarques.push(responseData.result);
-        navigate('/dashboard/gestion');
+        getEtats();
         // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
@@ -187,7 +189,7 @@ import { jwtDecode } from "jwt-decode";
   
         //const responseData = await response.json();
         //console.log('Réponse de API ajout marque :', responseData);
-        navigate('/dashboard/gestion');
+        getEtats();
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
       }

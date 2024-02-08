@@ -50,6 +50,13 @@ import { jwtDecode } from "jwt-decode";
 
     };
 
+    
+
+    // Appel de la fonction de vérification lors du chargement de la page
+    checkToken();
+    getPays();
+    }, []);
+
     const getPays = async () => {
   
       const apiPays = "https://api-finalclouds5-production.up.railway.app/paysmarques"; 
@@ -73,11 +80,6 @@ import { jwtDecode } from "jwt-decode";
       }
 
     };
-
-    // Appel de la fonction de vérification lors du chargement de la page
-    checkToken();
-    getPays();
-    }, []);
 
     const changeAjout = (e) => {
       const { name, value } = e.target;
@@ -126,7 +128,7 @@ import { jwtDecode } from "jwt-decode";
         console.log('Réponse de API ajout pays :', responseData);
         //dataMarques.push(responseData.result);
         //window.location.reload();
-        navigate('/dashboard/gestion');
+        getPays();
         // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
@@ -162,7 +164,7 @@ import { jwtDecode } from "jwt-decode";
         console.log('Réponse de API ajout Pays :', responseData);
         //dataMarques.push(responseData.result);
         //window.location.reload();
-        navigate('/dashboard/gestion');
+        getPays();
         // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
@@ -188,7 +190,7 @@ import { jwtDecode } from "jwt-decode";
         //const responseData = await response.json();
         //console.log('Réponse de API ajout marque :', responseData);
         //window.location.reload();
-        navigate('/dashboard/gestion');
+        getPays();
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
       }

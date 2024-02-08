@@ -50,6 +50,13 @@ import { jwtDecode } from "jwt-decode";
 
     };
 
+    
+
+    // Appel de la fonction de vérification lors du chargement de la page
+    checkToken();
+    getEnergie();
+    }, []);
+
     const getEnergie = async () => {
   
       const apiEnergie = "https://api-finalclouds5-production.up.railway.app/energies"; 
@@ -73,11 +80,6 @@ import { jwtDecode } from "jwt-decode";
       }
 
     };
-
-    // Appel de la fonction de vérification lors du chargement de la page
-    checkToken();
-    getEnergie();
-    }, []);
 
     const changeAjout = (e) => {
       const { name, value } = e.target;
@@ -125,7 +127,7 @@ import { jwtDecode } from "jwt-decode";
         const responseData = await response.json();
         console.log('Réponse de API ajout energie :', responseData);
         //dataMarques.push(responseData.result);
-        navigate('/dashboard/gestion');
+        getEnergie();
         // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
@@ -160,7 +162,7 @@ import { jwtDecode } from "jwt-decode";
         const responseData = await response.json();
         console.log('Réponse de API ajout Categorie :', responseData);
         //dataMarques.push(responseData.result);
-        navigate('/dashboard/gestion');
+        getEnergie();
         // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
@@ -185,7 +187,7 @@ import { jwtDecode } from "jwt-decode";
   
         //const responseData = await response.json();
         //console.log('Réponse de API ajout marque :', responseData);
-        navigate('/dashboard/gestion');
+        getEnergie();
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
       }

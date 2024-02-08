@@ -59,6 +59,14 @@ import { jwtDecode } from "jwt-decode";
 
     };
 
+    
+
+    
+    checkToken();
+    getPays();
+    getMarques();
+    }, []);
+
     const getPays = async () => {
   
       const apiPays = "https://api-finalclouds5-production.up.railway.app/paysmarques"; 
@@ -107,12 +115,6 @@ import { jwtDecode } from "jwt-decode";
 
     };
 
-    
-    checkToken();
-    getPays();
-    getMarques();
-    }, []);
-
     const changeAjout = (e) => {
       const { name, value } = e.target;
       setFormAjout({
@@ -159,7 +161,8 @@ import { jwtDecode } from "jwt-decode";
         const responseData = await response.json();
         console.log('Réponse de API ajout marque :', responseData);
         //dataMarques.push(responseData.result);
-        navigate('/dashboard/gestion');
+        getPays();
+    getMarques();
         // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
@@ -194,7 +197,8 @@ import { jwtDecode } from "jwt-decode";
         const responseData = await response.json();
         console.log('Réponse de API ajout marque :', responseData);
         //dataMarques.push(responseData.result);
-        navigate('/dashboard/gestion');
+        getPays();
+    getMarques();
         // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
@@ -219,7 +223,8 @@ import { jwtDecode } from "jwt-decode";
   
         //const responseData = await response.json();
         //console.log('Réponse de API ajout marque :', responseData);
-        navigate('/dashboard/gestion');
+        getPays();
+    getMarques();
       } catch (error) {
         console.error('Erreur lors de la soumission du formulaire :', error.message);
       }

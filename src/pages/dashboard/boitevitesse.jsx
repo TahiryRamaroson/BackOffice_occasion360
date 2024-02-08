@@ -29,6 +29,30 @@ import { jwtDecode } from "jwt-decode";
         nom: '',
     });
 
+    const getBoites = async () => {
+  
+      const apiBoites = "https://api-finalclouds5-production.up.railway.app/boitevitesses"; 
+
+      try {
+        const reponsePays = await fetch(apiBoites, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
+          },
+        });
+        if (!reponsePays.ok) {
+          throw new Error('Erreur lors de la demande.');
+        }
+        const data = await reponsePays.json();
+        setDataBoites(data.result);
+        console.log("dataBoites après la mise à jour d'état :", data);
+      } catch (error) {
+        console.error("nisy erreuuuurrrr: " + error.message);
+      }
+
+  };
+
     useEffect(() => {
     const checkToken = () => {
       const token = localStorage.getItem('authToken');
@@ -48,29 +72,7 @@ import { jwtDecode } from "jwt-decode";
 
     };
 
-    const getBoites = async () => {
-  
-        const apiBoites = "https://api-finalclouds5-production.up.railway.app/boitevitesses"; 
-  
-        try {
-          const reponsePays = await fetch(apiBoites, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + localStorage.getItem('authToken'),
-            },
-          });
-          if (!reponsePays.ok) {
-            throw new Error('Erreur lors de la demande.');
-          }
-          const data = await reponsePays.json();
-          setDataBoites(data.result);
-          console.log("dataBoites après la mise à jour d'état :", data);
-        } catch (error) {
-          console.error("nisy erreuuuurrrr: " + error.message);
-        }
-  
-    };
+    
 
     checkToken();
     getBoites();
@@ -122,7 +124,7 @@ import { jwtDecode } from "jwt-decode";
           const responseData = await response.json();
           console.log('Réponse de API ajout marque :', responseData);
           //dataMarques.push(responseData.result);
-          navigate('/dashboard/gestion');
+          getBoites();
           // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
         } catch (error) {
           console.error('Erreur lors de la soumission du formulaire :', error.message);
@@ -157,7 +159,7 @@ import { jwtDecode } from "jwt-decode";
           const responseData = await response.json();
           console.log('Réponse de API ajout boite :', responseData);
           //dataMarques.push(responseData.result);
-          navigate('/dashboard/gestion');
+          getBoites();
           // Si nécessaire, effectuez des actions supplémentaires après la soumission réussie
         } catch (error) {
           console.error('Erreur lors de la soumission du formulaire :', error.message);
@@ -182,7 +184,7 @@ import { jwtDecode } from "jwt-decode";
     
           //const responseData = await response.json();
           //console.log('Réponse de API ajout marque :', responseData);
-          navigate('/dashboard/gestion');
+          getBoites();
         } catch (error) {
           console.error('Erreur lors de la soumission du formulaire :', error.message);
         }
