@@ -92,7 +92,7 @@ export function Annonce() {
 
       const structCom = {
         id_annonce : ""+id,
-        valeur : "15"
+        valeur : "10"
       }
 
       const annonce1Array = dataAnnonces.filter((item) => item.id == id);
