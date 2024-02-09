@@ -81,13 +81,14 @@ export function Annonce() {
 
     
 
-    const submitAccepter = async (e, id) => {
+    const submitAccepter = async (e, id, description) => {
       e.preventDefault();
 
       const structAccept = {
       id_voiture : "",  
       prix : "",
-      status : "10"
+      status : "10",
+      description : ""+ description
       }
 
       const structCom = {
@@ -237,7 +238,7 @@ export function Annonce() {
                       </Typography>
                     </CardBody>
                     <CardFooter className="mt-6 flex items-center justify-between py-0 px-1">
-                        <Button variant="outlined" size="sm" onClick={(e) => submitAccepter(e, id)}>
+                        <Button variant="outlined" size="sm" onClick={(e) => submitAccepter(e, id, description)}>
                           valider
                         </Button>
                         <Button variant="outlined" size="sm" onClick={(e) => submitRefuser(e, id)}>
